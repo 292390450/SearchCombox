@@ -1,0 +1,465 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:SearchComboBox">
+    <Color x:Key="ControlFillColorDisabled">#4DF9F9F9</Color>
+    <Color x:Key="ControlFillColorDefault">#B3FFFFFF</Color>
+    <Color x:Key="UiOverColor">#10222222</Color>
+    <SolidColorBrush x:Key="UiBrushElementBorder" Color="#06000000" />
+    <Color x:Key="ControlFillColorSecondary">#80F9F9F9</Color>
+    <SolidColorBrush x:Key="MainActionButtonBackColor" Color="#075dc4" />
+    <SolidColorBrush x:Key="UiBrushElement" Color="#fbfbfb" />
+    <SolidColorBrush x:Key="DefFontColor" Color="#333333" />
+    <Color x:Key="TextFillColorPrimary">#E4000000</Color>
+    <SolidColorBrush x:Key="UiBrushButtonForeground" Color="{StaticResource TextFillColorPrimary}" />
+    <SolidColorBrush x:Key="UiBrushButtonHover" Color="{StaticResource UiOverColor}" />
+    <SolidColorBrush x:Key="UiBrushButtonBackground" Color="Transparent" />
+    <Color x:Key="ControlStrokeColorSecondary">#29000000</Color>
+    <Color x:Key="ControlStrokeColorDefault">#0F000000</Color>
+    <LinearGradientBrush x:Key="ControlElevationBorderBrush" MappingMode="Absolute" StartPoint="0,0" EndPoint="0,3">
+        <LinearGradientBrush.RelativeTransform>
+            <ScaleTransform CenterY="0.0" ScaleY="-1" />
+        </LinearGradientBrush.RelativeTransform>
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Offset="0.33" Color="{StaticResource ControlStrokeColorSecondary}" />
+            <GradientStop Offset="1.0" Color="{StaticResource ControlStrokeColorDefault}" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <Style x:Key="LightButton" TargetType="{x:Type Button}">
+        <!--<Setter Property="Padding" Value="30,6" />-->
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <!--<Setter Property="VerticalAlignment" Value="Center" />-->
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{StaticResource UiBrushButtonForeground}" />
+        <Setter Property="Background" Value="{StaticResource UiBrushButtonBackground}" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="0">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource UiBrushButtonHover}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{StaticResource UiBrushButtonHover}" />
+                <Setter Property="Opacity" Value=".8" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="LightCornerButton" TargetType="{x:Type Button}">
+        <!--<Setter Property="Padding" Value="30,6" />-->
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <!--<Setter Property="VerticalAlignment" Value="Center" />-->
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{StaticResource UiBrushButtonForeground}" />
+        <Setter Property="Background" Value="{StaticResource UiBrushButtonBackground}" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="3">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource UiBrushButtonHover}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{StaticResource UiBrushButtonHover}" />
+                <Setter Property="Opacity" Value=".8" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Win11Textbox" TargetType="{x:Type TextBox}">
+        <Setter Property="Padding" Value="6,4" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Background" Value="{StaticResource UiBrushElement}" />
+        <Setter Property="Foreground" Value="{StaticResource DefFontColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource UiBrushElementBorder}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Grid>
+                        <Border
+                            x:Name="MainBorder"
+                            Padding="2"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3"
+                            Opacity="0.7" />
+                        <Border Padding="2">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost" Margin="0" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="MainBorder" Property="Opacity" Value="1" />
+                        </Trigger>
+                        <Trigger Property="IsReadOnly" Value="True">
+                            <Setter TargetName="MainBorder" Property="Opacity" Value="0.7" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
+        <Setter Property="Foreground" Value="{StaticResource DefFontColor}">
+            <!--<Setter.Value>
+                <SolidColorBrush Color="{DynamicResource TextFillColorPrimary}" />
+            </Setter.Value>-->
+        </Setter>
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource ControlFillColorDefault}" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" Value="{StaticResource ControlElevationBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            x:Name="CheckBoxIconBorder"
+                            Width="20"
+                            Height="20"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="20">
+                            <Ellipse
+                                x:Name="CheckBoxIcon"
+                                Width="15"
+                                Height="15"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Fill="{StaticResource MainActionButtonBackColor}"
+                                Visibility="Collapsed" />
+                        </Border>
+                        <ContentPresenter
+                            x:Name="Presenter"
+                            Grid.Column="1"
+                            Margin="6,-1,0,0"
+                            VerticalAlignment="Center" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="CheckBoxIcon" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <!--<Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="CheckBoxIcon" Property="Text" Value="" />
+                        </Trigger>-->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="CheckBoxIconBorder" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{StaticResource ControlFillColorDisabled}" />
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="Presenter" Property="Opacity" Value="0.8" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <!--<Setter TargetName="CheckBoxIcon" Property="Foreground" Value="{TemplateBinding Foreground}">
+                            -->
+                            <!--<Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource TextFillColorPrimary}" />
+                                </Setter.Value>-->
+                            <!--
+                            </Setter>-->
+                            <Setter TargetName="CheckBoxIconBorder" Property="Background" Value="{StaticResource UiBrushButtonHover}">
+                                <!--<Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource TextFillColorSecondary}" />
+                                </Setter.Value>-->
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:SearchComboBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:SearchComboBox}">
+                    <ControlTemplate.Resources>
+                        <DataTemplate x:Key="DefaultItemTemplate">
+                            <TextBlock
+                                Margin="5,3"
+                                VerticalAlignment="Center"
+                                Foreground="{StaticResource DefFontColor}"
+                                Text="{Binding}" />
+                        </DataTemplate>
+                    </ControlTemplate.Resources>
+                    <Border
+                        BorderBrush="{StaticResource ControlElevationBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="3">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="30" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                                x:Name="DropButton"
+                                Grid.ColumnSpan="2"
+                                MinHeight="30"
+                                HorizontalContentAlignment="Right"
+                                Style="{StaticResource LightButton}">
+                                <b:Interaction.Triggers>
+                                    <b:EventTrigger EventName="Click">
+                                        <b:ChangePropertyAction
+                                            PropertyName="IsOpen"
+                                            TargetName="SerarchPanel"
+                                            Value="True" />
+                                    </b:EventTrigger>
+                                </b:Interaction.Triggers>
+                                <Path
+                                    Margin="0,0,10,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z">
+                                    <Path.Fill>
+                                        <SolidColorBrush Color="{StaticResource TextFillColorPrimary}" />
+                                    </Path.Fill>
+                                </Path>
+                            </Button>
+                            <ItemsControl
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                ItemsSource="{TemplateBinding SelectedItems}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+
+
+                                        <Border
+                                            Margin="3"
+                                            Background="{StaticResource UiBrushElement}"
+                                            CornerRadius="3">
+                                            <Grid>
+                                                <ContentPresenter
+                                                    x:Name="Single"
+                                                    Margin="3"
+                                                    Content="{Binding}"
+                                                    ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}, Path=ItemTemplate}" />
+                                                <Grid x:Name="MutilSelect" Visibility="Collapsed">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ContentPresenter
+                                                        VerticalAlignment="Center"
+                                                        Content="{Binding}"
+                                                        ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}, Path=ItemTemplate}" />
+                                                    <Button
+                                                        Grid.Column="1"
+                                                        Width="20"
+                                                        Height="20"
+                                                        Margin="2,0"
+                                                        HorizontalAlignment="Right"
+                                                        Style="{StaticResource LightCornerButton}">
+                                                        <b:Interaction.Triggers>
+                                                            <b:EventTrigger EventName="Click">
+                                                                <b:CallMethodAction MethodName="RemoveItem" TargetObject="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}}" />
+                                                            </b:EventTrigger>
+                                                        </b:Interaction.Triggers>
+                                                        <Path Fill="Black">
+                                                            <Path.RenderTransform>
+                                                                <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+                                                            </Path.RenderTransform>
+                                                            <Path.Data>
+                                                                <StreamGeometry>M 3,3 L 3,4 L 4,4 L 4,3 Z M 5,5 L 5,6 L 6,6 L 6,5 Z M 7,7 L 7,9 L 9,9 L 9,7 Z M 9,9 L 9,10 L 10,10 L 10,9 Z M 11,11 L 11,12 L 12,12 L 12,11 Z M 4,4 L 4,5 L 5,5 L 5,4 Z M 6,6 L 6,7 L 7,7 L 7,6 Z M 12,3 L 12,4 L 13,4 L 13,3 Z M 10,10 L 10,11 L 11,11 L 11,10 Z M 12,12 L 12,13 L 13,13 L 13,12 Z M 11,4 L 11,5 L 12,5 L 12,4 Z M 10,5 L 10,6 L 11,6 L 11,5 Z M 9,6 L 9,7 L 10,7 L 10,6 Z M 6,9 L 6,10 L 7,10 L 7,9 Z M 5,10 L 5,11 L 6,11 L 6,10 Z M 4,11 L 4,12 L 5,12 L 5,11 Z M 3,12 L 3,13 L 4,13 L 4,12 Z</StreamGeometry>
+                                                            </Path.Data>
+                                                        </Path>
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+
+
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}, Path=SelectMode}" Value="{x:Static local:SelectMode.Multi}">
+                                                <Setter TargetName="Single" Property="Visibility" Value="Collapsed" />
+                                                <Setter TargetName="MutilSelect" Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}, Path=SelectMode}" Value="{x:Static local:SelectMode.Single}">
+                                                <Setter TargetName="Single" Property="Visibility" Value="Visible" />
+                                                <Setter TargetName="MutilSelect" Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <Popup
+                                x:Name="SerarchPanel"
+                                Width="{Binding ElementName=DropButton, Path=ActualWidth}"
+                                AllowsTransparency="True"
+                                PopupAnimation="Slide"
+                                StaysOpen="False">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Border
+                                        Grid.RowSpan="2"
+                                        Margin="3"
+                                        Background="{StaticResource UiBrushElement}"
+                                        CornerRadius="3">
+                                        <Border.Effect>
+                                            <DropShadowEffect
+                                                Direction="270"
+                                                Opacity="0.3"
+                                                ShadowDepth="3"
+                                                Color="Gray" />
+                                        </Border.Effect>
+                                    </Border>
+                                    <Grid
+                                        Margin="10,3"
+                                        VerticalAlignment="Center"
+                                        Visibility="{TemplateBinding IsOpenSearch}">
+
+                                        <TextBox
+                                            Padding="6,4,30,4"
+                                            BorderBrush="{StaticResource MainActionButtonBackColor}"
+                                            Style="{StaticResource Win11Textbox}"
+                                            Text="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}, Path=SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                                        <Button
+                                            Width="30"
+                                            Height="30"
+                                            HorizontalAlignment="Right"
+                                            Style="{StaticResource LightCornerButton}"
+                                            ToolTip="search">
+                                            <b:Interaction.Triggers>
+                                                <b:EventTrigger EventName="Click">
+                                                    <b:CallMethodAction MethodName="Search" TargetObject="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}}" />
+                                                </b:EventTrigger>
+                                            </b:Interaction.Triggers>
+                                            <Image
+                                                Width="20"
+                                                Height="20"
+                                                Source="pack://application:,,,/SearchComboBox;component/search.png" />
+                                        </Button>
+                                    </Grid>
+                                    <ItemsControl
+                                        Grid.Row="1"
+                                        Margin="5"
+                                        ItemsSource="{TemplateBinding SearchList}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border
+                                                    x:Name="ItemGrid"
+                                                    Padding="5"
+                                                    Cursor="Hand">
+                                                    <b:Interaction.Triggers>
+                                                        <b:EventTrigger EventName="MouseLeftButtonDown">
+                                                            <b:CallMethodAction MethodName="SingleSelected" TargetObject="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}}" />
+                                                        </b:EventTrigger>
+                                                    </b:Interaction.Triggers>
+                                                    <Grid>
+                                                        <ContentPresenter
+                                                            x:Name="Single"
+                                                            Content="{Binding Item}"
+                                                            ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}, Path=ItemTemplate}"
+                                                            Visibility="Collapsed" />
+
+                                                        <CheckBox
+                                                            x:Name="MutilSelect"
+                                                            Margin="2,0"
+                                                            VerticalContentAlignment="Center"
+                                                            IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                            Style="{StaticResource CheckBoxStyle}"
+                                                            Visibility="Visible">
+
+                                                            <b:Interaction.Triggers>
+                                                                <b:EventTrigger EventName="Checked">
+                                                                    <b:CallMethodAction MethodName="MutilSelected" TargetObject="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}}" />
+                                                                </b:EventTrigger>
+                                                                <b:EventTrigger EventName="Unchecked">
+                                                                    <b:CallMethodAction MethodName="MutilSelected" TargetObject="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}}" />
+                                                                </b:EventTrigger>
+                                                            </b:Interaction.Triggers>
+                                                            <CheckBox.Content>
+                                                                <ContentPresenter Content="{Binding Item}" ContentTemplate="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}, Path=ItemTemplate}" />
+                                                            </CheckBox.Content>
+                                                        </CheckBox>
+                                                    </Grid>
+
+                                                </Border>
+                                                <DataTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="ItemGrid" Property="Background">
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="{StaticResource ControlFillColorSecondary}" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}, Path=SelectMode}" Value="{x:Static local:SelectMode.Multi}">
+                                                        <Setter TargetName="Single" Property="Visibility" Value="Collapsed" />
+                                                        <Setter TargetName="MutilSelect" Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=local:SearchComboBox}, Path=SelectMode}" Value="{x:Static local:SelectMode.Single}">
+                                                        <Setter TargetName="Single" Property="Visibility" Value="Visible" />
+                                                        <Setter TargetName="MutilSelect" Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </DataTemplate.Triggers>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

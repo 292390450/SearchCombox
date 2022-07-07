@@ -1,0 +1,45 @@
+﻿<Window
+    x:Class="SearchComboBoxTest.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SearchComboBoxTest"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:searchComboBox="clr-namespace:SearchComboBox;assembly=SearchComboBox"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance local:MainViewModel}"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <DataTemplate x:Key="ItemTemplate">
+            <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+    </Window.Resources>
+    <StackPanel>
+        <Label>single and noSearch</Label>
+        <searchComboBox:SearchComboBox
+            Width="120"
+         
+            IsOpenSearch="Collapsed"
+            ItemSource="{Binding Sources}"
+            ItemTemplate="{StaticResource ItemTemplate}"
+            SelectMode="Single" />
+        <Label>single and Search</Label>
+        <searchComboBox:SearchComboBox
+            Width="120"
+          
+            ItemSource="{Binding Sources}"
+            ItemTemplate="{StaticResource ItemTemplate}"
+            SearchExpression="{Binding SearchExpression}"
+            SelectMode="Single" />
+        <Label>mutil and Search</Label>
+        <searchComboBox:SearchComboBox
+            Width="120"
+            
+            ItemSource="{Binding Sources}" SelectedItems="{Binding Selected}"
+            ItemTemplate="{StaticResource ItemTemplate}"
+            SearchExpression="{Binding SearchExpression}"
+            SelectMode="Multi" />
+    </StackPanel>
+</Window>
