@@ -8,4 +8,4 @@ WPFcan Search and mutilSelected combox
 
 Mvvm全支持。
 
-SearchComboBox
+  Install-Package SearchComboBox -Version 1.0.0 使用
